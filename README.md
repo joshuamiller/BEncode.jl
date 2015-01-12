@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/joshuamiller/BEncode.jl.svg)](https://travis-ci.org/joshuamiller/BEncode.jl)
 
-A Julia library for [BEncode](http://en.wikipedia.org/wiki/BEncode).
+A Julia library for [BEncode](http://en.wikipedia.org/wiki/Bencode).
 
 ```julia
 using BEncode
