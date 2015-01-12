@@ -19,10 +19,6 @@ function bencode(val::Dict)
     "d" * join(map((k) -> bencode(string(k)) * bencode(val[k]), ks)) * "e"
 end
 
-function bparseint(val::String)
-    parseint(split(val, "e")[1])
-end
-
 function bparsestring(val::String)
     splitstr = split(val, ":", 2)
     thislength = parseint(splitstr[1])
