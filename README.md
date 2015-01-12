@@ -1,5 +1,7 @@
 # Bencode.jl
 
+[![Build Status](https://travis-ci.org/joshuamiller/Bencode.jl.svg)](https://travis-ci.org/joshuamiller/Bencode.jl)
+
 A Julia library for [bencode](http://en.wikipedia.org/wiki/Bencode).
 
 ```julia
