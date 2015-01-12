@@ -1,11 +1,11 @@
-# Bencode.jl
+# BEncode.jl
 
-[![Build Status](https://travis-ci.org/joshuamiller/Bencode.jl.svg)](https://travis-ci.org/joshuamiller/Bencode.jl)
+[![Build Status](https://travis-ci.org/joshuamiller/BEncode.jl.svg)](https://travis-ci.org/joshuamiller/BEncode.jl)
 
-A Julia library for [bencode](http://en.wikipedia.org/wiki/Bencode).
+A Julia library for [BEncode](http://en.wikipedia.org/wiki/BEncode).
 
 ```julia
-using Bencode
+using BEncode
 
 bencode({"Dict" => [1, "two"]})
 # "d4:Dictli1e3:twoee"

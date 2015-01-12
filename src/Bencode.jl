@@ -1,4 +1,4 @@
-module Bencode
+module BEncode
 
 export bencode, bdecode
 

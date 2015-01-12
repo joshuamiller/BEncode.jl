@@ -1,5 +1,5 @@
 using Base.Test
-using Bencode
+using BEncode
 
 # Decode
 
