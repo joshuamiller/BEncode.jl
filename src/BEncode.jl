@@ -2,7 +2,7 @@ module BEncode
 
 export bencode, bdecode
 
-function bencode(val::String)
+function bencode(val::AbstractString)
     string(length(val)) * ":" * val
 end
 
@@ -19,7 +19,7 @@ function bencode(val::Dict)
     "d" * join(map((k) -> bencode(string(k)) * bencode(val[k]), ks)) * "e"
 end
 
-function bparsestring(val::String)
+function bparsestring(val::AbstractString)
     splitstr = split(val, ":", 2)
     thislength = parseint(splitstr[1])
     if length(splitstr[2]) > thislength
@@ -30,7 +30,7 @@ function bparsestring(val::String)
     end
 end
 
-function bparseint(val::String)
+function bparseint(val::AbstractString)
     splitstr = split(val, "e", 2)
     thisint = parseint(splitstr[1])
     if length(splitstr[2]) > 0
@@ -40,7 +40,7 @@ function bparseint(val::String)
     end
 end
 
-function bparsearray(val::String)
+function bparsearray(val::AbstractString)
     array = Union(String,Int,Array,Dict)[]
     while val[1] != 'e'
         entry, val = bdecode(val)
@@ -53,13 +53,13 @@ function bparsearray(val::String)
     end
 end
 
-function bparsedictentry(val::String)
+function bparsedictentry(val::AbstractString)
     k, rest = bparsestring(val)
     v, rest = bdecode(rest)
     k, v, rest
 end
 
-function bparsedict(val::String)
+function bparsedict(val::AbstractString)
     dict = Dict()
     while val[1] != 'e'
         k, v, val = bparsedictentry(val)
@@ -72,7 +72,7 @@ function bparsedict(val::String)
     end
 end
 
-function bdecode(val::String)
+function bdecode(val::AbstractString)
     if val[1] == 'i'
         bparseint(val[2:end])
     elseif val[1] == 'l'
