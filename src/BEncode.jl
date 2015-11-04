@@ -41,7 +41,7 @@ function bparseint(val::AbstractString)
 end
 
 function bparsearray(val::AbstractString)
-    array = Union(String,Int,Array,Dict)[]
+    array = Union{String,Int,Array,Dict}[]
     while val[1] != 'e'
         entry, val = bdecode(val)
         push!(array, entry)
