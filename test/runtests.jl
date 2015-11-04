@@ -14,7 +14,7 @@ using BEncode
 @test bdecode("li4e1:2e") == [4, "2"]
 @test bdecode("le") == []
 
-@test bdecode("d4:dictli1ei4eee") == {"dict" => [1, 4]}
+@test bdecode("d4:dictli1ei4eee") == Dict("dict" => [1, 4])
 @test bdecode("de") == Dict()
 
 # Encode
@@ -30,5 +30,5 @@ using BEncode
 @test bencode([4, "2"]) == "li4e1:2e"
 @test bencode([]) == "le"
 
-@test bencode({"dict" => [1, 4]}) == "d4:dictli1ei4eee"
+@test bencode(Dict("dict" => [1, 4])) == "d4:dictli1ei4eee"
 @test bencode(Dict()) == "de"
