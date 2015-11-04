@@ -20,8 +20,8 @@ function bencode(val::Dict)
 end
 
 function bparsestring(val::AbstractString)
-    splitstr = split(val, ":", 2)
-    thislength = parseint(splitstr[1])
+    splitstr = split(val, ":", limit=2)
+    thislength = parse(Int,splitstr[1])
     if length(splitstr[2]) > thislength
         thisstring = splitstr[2][1:thislength]
         return thisstring, splitstr[2][thislength + 1:end]
@@ -31,8 +31,8 @@ function bparsestring(val::AbstractString)
 end
 
 function bparseint(val::AbstractString)
-    splitstr = split(val, "e", 2)
-    thisint = parseint(splitstr[1])
+    splitstr = split(val, "e", limit=2)
+    thisint = parse(Int,splitstr[1])
     if length(splitstr[2]) > 0
         return thisint, splitstr[2]
     else
@@ -41,7 +41,7 @@ function bparseint(val::AbstractString)
 end
 
 function bparsearray(val::AbstractString)
-    array = Union{String,Int,Array,Dict}[]
+    array = Union{AbstractString,Int,Array,Dict}[]
     while val[1] != 'e'
         entry, val = bdecode(val)
         push!(array, entry)
