@@ -2,7 +2,7 @@ module BEncode
 
 export bencode, bdecode
 
-function bencode(val::String)
+function bencode(val::AbstractString)
     string(length(val)) * ":" * val
 end
 
@@ -19,29 +19,29 @@ function bencode(val::Dict)
     "d" * join(map((k) -> bencode(string(k)) * bencode(val[k]), ks)) * "e"
 end
 
-function bparsestring(val::String)
-    splitstr = split(val, ":", 2)
-    thislength = parseint(splitstr[1])
+function bparsestring(val::AbstractString)
+    splitstr = split(val, ":", limit=2)
+    thislength = parse(Int64, splitstr[1])
     if length(splitstr[2]) > thislength
         thisstring = splitstr[2][1:thislength]
-        return thisstring, splitstr[2][thislength + 1:end]
+        return convert(String, thisstring), splitstr[2][thislength + 1:end]
     else
         return splitstr[2]
     end
 end
 
-function bparseint(val::String)
-    splitstr = split(val, "e", 2)
-    thisint = parseint(splitstr[1])
-    if length(splitstr[2]) > 0
+function bparseint(val::AbstractString)
+    splitstr = split(val, "e", limit=2)
+    thisint = parse(Int64, splitstr[1])
+    if (length(splitstr) > 1) && (length(splitstr[2]) > 0)
         return thisint, splitstr[2]
     else
         return thisint
     end
 end
 
-function bparsearray(val::String)
-    array = Union(String,Int,Array,Dict)[]
+function bparsearray(val::AbstractString)
+    array = Union{String,Int,Array,Dict}[]
     while val[1] != 'e'
         entry, val = bdecode(val)
         push!(array, entry)
@@ -53,13 +53,13 @@ function bparsearray(val::String)
     end
 end
 
-function bparsedictentry(val::String)
+function bparsedictentry(val::AbstractString)
     k, rest = bparsestring(val)
     v, rest = bdecode(rest)
     k, v, rest
 end
 
-function bparsedict(val::String)
+function bparsedict(val::AbstractString)
     dict = Dict()
     while val[1] != 'e'
         k, v, val = bparsedictentry(val)
@@ -72,7 +72,7 @@ function bparsedict(val::String)
     end
 end
 
-function bdecode(val::String)
+function bdecode(val::AbstractString)
     if val[1] == 'i'
         bparseint(val[2:end])
     elseif val[1] == 'l'
