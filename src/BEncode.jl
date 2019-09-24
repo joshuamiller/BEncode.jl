@@ -21,7 +21,7 @@ end
 
 function bparsestring(val::AbstractString)
     splitstr = split(val, ":", limit=2)
-    thislength = parse(Int64, splitstr[1])
+    thislength = parse(Int,splitstr[1])
     if length(splitstr[2]) > thislength
         thisstring = splitstr[2][1:thislength]
         return convert(String, thisstring), splitstr[2][thislength + 1:end]
@@ -32,8 +32,8 @@ end
 
 function bparseint(val::AbstractString)
     splitstr = split(val, "e", limit=2)
-    thisint = parse(Int64, splitstr[1])
-    if (length(splitstr) > 1) && (length(splitstr[2]) > 0)
+    thisint = parse(Int,splitstr[1])
+    if length(splitstr[2]) > 0
         return thisint, splitstr[2]
     else
         return thisint
